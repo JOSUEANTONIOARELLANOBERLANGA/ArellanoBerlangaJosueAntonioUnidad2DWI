@@ -15,7 +15,6 @@ services:
       - ./jaabweb.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
-    
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
       interval: 10s
@@ -29,9 +28,9 @@ services:
     container_name: web-app
     restart: always
     ports:
-      - "8082:80"
+      - "8082:80"  
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/html  
     depends_on:
       db:
         condition: service_healthy
