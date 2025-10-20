@@ -16,7 +16,7 @@ services:
     ports:
       - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -24,13 +24,11 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-php
     container_name: web-app
     restart: always
     ports:
-      - "8082:8082"  
-    volumes:
-      - ./src:/var/www/html
+      - "8082:8082"
     depends_on:
       db:
         condition: service_healthy
