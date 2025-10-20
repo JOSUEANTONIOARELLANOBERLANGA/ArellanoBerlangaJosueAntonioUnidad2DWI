@@ -7,10 +7,11 @@ RUN a2enmod rewrite
 RUN sed -i 's/80/8082/' /etc/apache2/ports.conf \
  && sed -i 's/80/8082/' /etc/apache2/sites-available/000-default.conf
 
-WORKDIR /var/www/html
-COPY src/ /var/www/html/
+RUN echo 'DirectoryIndex Index.php index.php index.html' > /etc/apache2/mods-enabled/dir.conf
 
-RUN chown -R www-data:www-data /var/www/html
+WORKDIR /var/www/html
+
+COPY ./src/ /var/www/html/
 
 EXPOSE 8082
 
